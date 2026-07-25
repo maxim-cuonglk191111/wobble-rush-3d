@@ -45,8 +45,11 @@ One short, polished course featuring:
 5. A **narrow bridge** with a sweeper in the middle.
 6. A **final ramp** up into the glowing **finish gate**.
 
-Fall off and you respawn instantly at your latest checkpoint. Reach the finish
-to see your time — beat your personal best (saved in your browser)!
+Fall off and you respawn instantly at your latest checkpoint — but each fall
+costs one of your **5 lives** (shown ♥ in the HUD). Run out and it's **Game
+Over**; reach the finish to see your time and beat your personal best (saved in
+your browser)! Pressing `R` to respawn on purpose is free and doesn't cost a
+life.
 
 ## 🕹️ Game feel
 

@@ -41,6 +41,10 @@
       <span class="hud-flag">⚑</span>
       <span id="hud-checkpoint-count">0</span> / <span id="hud-checkpoint-total">0</span>
     </div>
+    <div class="hud-lives" id="hud-lives">
+      <span class="hud-heart">♥</span>
+      <span id="hud-lives-count">5</span>
+    </div>
     <div class="hud-hint" id="hud-hint">Reach the glowing gate!</div>
   </div>
 
@@ -52,6 +56,16 @@
       <div class="finish-time" id="finish-time">0.00s</div>
       <p class="finish-best" id="finish-best"></p>
       <button id="restart-button" class="btn btn-big">RACE AGAIN</button>
+    </div>
+  </div>
+
+  <!-- Game over screen (ran out of lives) -->
+  <div id="gameover-screen" class="overlay hidden">
+    <div class="panel gameover-panel">
+      <h1 class="gameover-title">GAME OVER</h1>
+      <p class="finish-sub">You ran out of lives!</p>
+      <div class="finish-time" id="gameover-info">0 checkpoints · 0.00s</div>
+      <button id="gameover-restart" class="btn btn-big">TRY AGAIN</button>
     </div>
   </div>
 

@@ -29,7 +29,9 @@ class Game {
     this.ui.onPlay = () => this.startRace();
     this.ui.onRestart = () => this.startRace();
 
-    // Respawn state.
+    // Respawn / lives state.
+    this.maxLives = 5;
+    this.lives = this.maxLives;
     this.respawnPoint = this.course.spawn.clone();
     this.checkpointsHit = 0;
 
@@ -104,7 +106,7 @@ class Game {
   }
 
   _menuConfirm() {
-    if (this.state === 'start' || this.state === 'finished') {
+    if (this.state === 'start' || this.state === 'finished' || this.state === 'gameover') {
       this.startRace();
     }
   }
@@ -113,19 +115,25 @@ class Game {
   startRace() {
     this.respawnPoint = this.course.spawn.clone();
     this.checkpointsHit = 0;
+    this.lives = this.maxLives;
     for (const cp of this.course.checkpoints) cp.activated = false;
     this.edges.jump = this.edges.dive = this.edges.respawn = false;
     this.player.reset(this.course.spawn);
     this._placeCameraInstant();
     this.raceTime = 0;
     this.state = 'playing';
-    this.ui.showHUD(this.course.checkpoints.length);
+    this.ui.showHUD(this.course.checkpoints.length - 1, this.lives);
   }
 
   finishRace() {
     this.state = 'finished';
     this.effects.finish(new THREE.Vector3(this.player.position.x, this.player.position.y + 1, this.player.position.z));
     this.ui.showFinish(this.raceTime);
+  }
+
+  gameOver() {
+    this.state = 'gameover';
+    this.ui.showGameOver(this.checkpointsHit, this.course.checkpoints.length - 1, this.raceTime);
   }
 
   /* ---------------------- main loop ---------------------- */
@@ -197,9 +205,16 @@ class Game {
       }
     }
 
-    // Fell off the course.
+    // Fell off the course -> lose a life and respawn (or game over).
     if (this.player.hasFallen(this.course.KILL_Y)) {
+      this.lives--;
+      this.ui.updateLives(this.lives);
+      if (this.lives <= 0) {
+        this.gameOver();
+        return;
+      }
       this.player.respawn(this.respawnPoint);
+      this.ui.showHint('Ouch! ' + this.lives + (this.lives === 1 ? ' life' : ' lives') + ' left');
     }
   }
 
