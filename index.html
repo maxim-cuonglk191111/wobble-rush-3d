@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wobble Rush 3D</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Render target -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Fatal error overlay (no silent fallbacks) -->
+  <div id="error-overlay" class="overlay hidden">
+    <div class="panel error-panel">
+      <h1>Oops — Wobble Rush couldn't start</h1>
+      <p id="error-message">Something went wrong.</p>
+      <p class="hint">Check your internet connection (Three.js loads from a CDN) and reload.</p>
+    </div>
+  </div>
+
+  <!-- Start screen -->
+  <div id="start-screen" class="overlay hidden">
+    <div class="panel">
+      <h1 class="title">WOBBLE<span class="title-accent">RUSH</span><span class="title-3d">3D</span></h1>
+      <p class="tagline">Bounce, dive and wobble your way to the finish line!</p>
+      <button id="play-button" class="btn btn-big">PLAY</button>
+      <div class="controls-help">
+        <span><b>WASD / Arrows</b> Move</span>
+        <span><b>Space</b> Jump</span>
+        <span><b>Shift</b> Dive / Boost</span>
+        <span><b>R</b> Respawn</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- In-game HUD -->
+  <div id="hud" class="hidden">
+    <div class="hud-timer" id="hud-timer">0.00</div>
+    <div class="hud-checkpoints">
+      <span class="hud-flag">⚑</span>
+      <span id="hud-checkpoint-count">0</span> / <span id="hud-checkpoint-total">0</span>
+    </div>
+    <div class="hud-hint" id="hud-hint">Reach the glowing gate!</div>
+  </div>
+
+  <!-- Finish screen -->
+  <div id="finish-screen" class="overlay hidden">
+    <div class="panel finish-panel">
+      <h1 class="finish-title">FINISH!</h1>
+      <p class="finish-sub">You wobbled through in</p>
+      <div class="finish-time" id="finish-time">0.00s</div>
+      <p class="finish-best" id="finish-best"></p>
+      <button id="restart-button" class="btn btn-big">RACE AGAIN</button>
+    </div>
+  </div>
+
+  <!-- Loading indicator -->
+  <div id="loading" class="overlay">
+    <div class="panel">
+      <div class="loader-spinner"></div>
+      <p>Loading Wobble Rush 3D…</p>
+    </div>
+  </div>
+
+  <!--
+    Three.js is loaded as a classic global build (window.THREE) so the game can
+    run by simply opening index.html. If it fails to load we surface a clear error.
+  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Game modules (classic scripts, order matters) -->
+  <script src="js/Effects.js"></script>
+  <script src="js/Obstacle.js"></script>
+  <script src="js/Checkpoint.js"></script>
+  <script src="js/Course.js"></script>
+  <script src="js/Player.js"></script>
+  <script src="js/UI.js"></script>
+  <script src="js/Game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
